@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Example Data Warga</title>
+    <script src="angular.min.js"></script>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="milligram.css">
+
+</head>
+
+<body ng-app='myapp'>
+
+    <main class="wrapper">
+
+     
+            <section class="container">
+
+                <a class="navigation-title" href="https://milligram.github.io/">
+                    <h1 class="title">Data Example</h1>
+                </a>
+
+                <form>
+                  <fieldset>
+                    <input type="text" name="search_query" ng-model="search_query" placeholder="Cari data ...." ng-keyup="fetchData()" id="nameField">
+                    <input class="button-primary" type="submit" value="Cari">
+                  </fieldset>
+                </form>
+
+                <blockquote>
+                  <p><em>Yeah!! Milligram is amazing with AngularJS + MySQL + PHP</em></p>
+                </blockquote>
+                <div ng-controller="userCtrl">
+                    <table width="100%">
+                        <thead>
+                            <tr style="color: #fff; background: #9b4dca;">
+                                <th>&nbsp; Nomor Register</th>
+                                <th>Nama</th>
+                                <th>Tempat Tanggal Lahir</th>
+                                <th>Alamat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in users">
+                                <td>{{user.docnum}}</td>
+                                <td>{{user.nama}}</td>
+                                <td>{{user.ttl}}</td>
+                                <td>{{user.lokasi}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+        
+        <footer class="footer">
+            <section class="container">
+                <p>Developers <a target="_blank" href="http://mhafid.com" title="CJ Patoilo">MHafid</a>.</p>
+            </section>
+        </footer>
+
+    </main>
+
+    <!-- Script -->
+    <script>
+        var fetch = angular.module('myapp', []);
+
+        fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
+
+            $http({
+                method: 'get',
+                url: 'getData.php'
+            }).then(function successCallback(response) {
+                $scope.users = response.data;
+            });
+
+        }]);
+    </script>
+</body>
+
+</html>
